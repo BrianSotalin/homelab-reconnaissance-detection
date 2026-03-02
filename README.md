@@ -31,18 +31,18 @@ Se activó el firewall en la máquina víctima con una política de denegación 
 sudo ufw enable
 sudo ufw logging medium
 ```
-2. Ejecución del Ataque (Reconnaissance)
+### 2. Ejecución del Ataque (Reconnaissance)
 Desde el terminal de macOS, se lanzó un escaneo de puertos rápidos para identificar servicios activos:
 ```bash
 nmap -F 172.20.10.7
 ```
-3. Análisis de Logs (Perspectiva SOC)
+### 3. Análisis de Logs (Perspectiva SOC)
 Debido a que las versiones modernas de Kali utilizan systemd-journald, se utilizó journalctl para la extracción de evidencias en tiempo real:
 
 ```bash
 sudo journalctl -kf | grep -i ufw
 ```
-#📊 Análisis de Evidencias Capturadas
+# 📊 Análisis de Evidencias Capturadas
 Log de ejemplo obtenido:
 ```bash
 Mar 02 14:28:53 kali kernel: [UFW BLOCK] IN=eth0 OUT= MAC=08:00:27:0a:fc:6e:3a:ca:80:47:bd:a0:08:00 SRC=172.20.10.3 DST=172.20.10.7 LEN=64 TOS=0x00 PREC=0x00 TTL=255 ID=0 DF PROTO=TCP SPT=50378 DPT=80 WINDOW=65535 RES=0x00 CWR ECE SYN URGP=0
@@ -55,5 +55,5 @@ Protocolo y Técnica: El uso de PROTO=TCP con el flag SYN indica un intento de i
 
 Objetivo: El puerto destino (DPT=80) revela que el atacante intentaba enumerar un servicio web (HTTP).
 
-##🎓 Conclusión
+## 🎓 Conclusión
 Este laboratorio demuestra el ciclo de vida de un incidente en fase de reconocimiento: desde la configuración del perímetro de seguridad y la resolución de problemas de red, hasta la captura e interpretación técnica de logs para la toma de decisiones en un entorno SOC.
